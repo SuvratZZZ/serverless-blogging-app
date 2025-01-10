@@ -14,8 +14,9 @@ function Quote() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("http://127.0.0.1:8787/api/quote");
-        console.log(response.data.data);
+        const url = import.meta.env.VITE_BACKEND+'/api/quote' ;
+        const response = await axios.get(url);
+        console.log(response.data.data[0]);
         setQuo(response.data.data[0]);
         setError(null);
       } catch (error) {

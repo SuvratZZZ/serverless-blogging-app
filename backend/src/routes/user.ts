@@ -21,7 +21,7 @@ userRoute.post('/signup',async (c) => {
       data:{
         name : body.name,
         email : body.email,
-        password : body.password
+        password : body.password,
       }
     })
     console.log(user);
@@ -46,7 +46,7 @@ userRoute.post('/signin', async (c) => {
     try{
       const user = await prisma.user.findUnique({
         where:{
-          name : body.name,
+          // name : body.name,
           email : body.email,
           password : body.password
         }
@@ -56,7 +56,15 @@ userRoute.post('/signin', async (c) => {
         return c.json({error:" user not found "})
       }
       const token = await sign({id : user.id},c.env.JWT_S);
-      return c.json({token, id : user.id });
+      c.cookie('auth_token', token, {
+        httpOnly: true,  // Ensures the cookie is only accessible by the server (not client-side JS)
+        secure: process.env.NODE_ENV === 'production',  // Only set the cookie over HTTPS in production
+        path: '/',  // Make the cookie available throughout the app
+        maxAge: 60 * 60 * 24 * 7, // 1 week expiration
+      })
+      
+      // Redirect to the home page
+      return c.redirect('/home')
     }
     catch(e){
       // console.log(e);
