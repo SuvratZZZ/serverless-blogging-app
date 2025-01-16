@@ -2,6 +2,7 @@ import { Hono } from 'hono'
 import { PrismaClient } from '@prisma/client/edge'
 import { withAccelerate } from '@prisma/extension-accelerate'
 import { sign } from 'hono/jwt'
+import { setCookie } from 'hono/cookie'
 
 export const userRoute = new Hono<{
   Bindings: {
@@ -43,6 +44,8 @@ userRoute.post('/signin', async (c) => {
     }).$extends(withAccelerate());
   
     const body = await c.req.json();
+    console.log(body.email)
+    console.log(body.password)
     try{
       const user = await prisma.user.findUnique({
         where:{
@@ -56,18 +59,17 @@ userRoute.post('/signin', async (c) => {
         return c.json({error:" user not found "})
       }
       const token = await sign({id : user.id},c.env.JWT_S);
-      c.cookie('auth_token', token, {
+      setCookie(c,'auth_token', token, {
         httpOnly: true,  // Ensures the cookie is only accessible by the server (not client-side JS)
         secure: process.env.NODE_ENV === 'production',  // Only set the cookie over HTTPS in production
         path: '/',  // Make the cookie available throughout the app
         maxAge: 60 * 60 * 24 * 7, // 1 week expiration
-      })
-      
+      });
       // Redirect to the home page
-      return c.redirect('/home')
+      return c.json({success : "signed in"});
     }
     catch(e){
-      // console.log(e);
+      console.log(e);
       c.status(411);
       return c.json({error : "unable to signin"})
     }

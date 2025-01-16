@@ -16,7 +16,7 @@ function Quote() {
       try {
         const url = import.meta.env.VITE_BACKEND+'/api/quote' ;
         const response = await axios.get(url);
-        console.log(response.data.data[0]);
+        // console.log(response.data.data[0]);
         setQuo(response.data.data[0]);
         setError(null);
       } catch (error) {

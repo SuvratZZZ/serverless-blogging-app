@@ -1,11 +1,20 @@
+import { getCookie } from "hono/cookie";
 import { verify } from "hono/jwt"
 
 export const auth_ver = async (c:any,next:any)=>{
-    if(await verify(c.req.header('token'),c.env.JWT_S)){
+    const req=c.
+    const token = getCookie(c ,'auth_token');
+    console.log(token)
+    if(!token){
+        c.status(403);
+        c.res.json({error : "unothorised"});
+    }
+    if((token) && (await verify( token ,c.env.JWT_S))){
         console.log("verifed");
+        c.req=req;
         await next();
     }else{
-        c.res.status(403);
+        c.status(403);
         return c.res.json({error : "unauthorised"});
     }
 }

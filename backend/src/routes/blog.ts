@@ -10,7 +10,7 @@ export const blogRoute = new Hono<{
     }
   }>();
 
-  blogRoute.post('/', auth_ver , async(c) => {
+  blogRoute.post('/post', auth_ver , async(c) => {
     const prisma = new PrismaClient({
       datasourceUrl: c.env.DATABASE_URL,
     }).$extends(withAccelerate());
@@ -37,6 +37,7 @@ export const blogRoute = new Hono<{
 })
 
 blogRoute.get('/posts', auth_ver , async (c) => {
+    console.log(c.req);
     const prisma = new PrismaClient({
       datasourceUrl: c.env.DATABASE_URL,
     }).$extends(withAccelerate());
