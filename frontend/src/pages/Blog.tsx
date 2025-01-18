@@ -5,7 +5,7 @@ function Blog() {
     const [posts,setposts] = useState<any[]>([]);
     async function getpost(){
         const data = await axios.get(import.meta.env.VITE_BACKEND+'/api/blog/posts',
-            {withCredentials : true }
+            { withCredentials : true }
         )
         setposts(data.data.post);
     }

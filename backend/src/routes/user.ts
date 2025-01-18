@@ -60,9 +60,9 @@ userRoute.post('/signin', async (c) => {
       }
       const token = await sign({id : user.id},c.env.JWT_S);
       setCookie(c,'auth_token', token, {
-        httpOnly: true,  // Ensures the cookie is only accessible by the server (not client-side JS)
-        secure: process.env.NODE_ENV === 'production',  // Only set the cookie over HTTPS in production
-        path: '/',  // Make the cookie available throughout the app
+        // httpOnly: true,  // Ensures the cookie is only accessible by the server (not client-side JS)
+        // secure: process.env.NODE_ENV === 'production',  // Only set the cookie over HTTPS in production
+        // path: '/*',  // Make the cookie available throughout the app
         maxAge: 60 * 60 * 24 * 7, // 1 week expiration
       });
       // Redirect to the home page

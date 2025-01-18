@@ -21,9 +21,11 @@ function Signin() {
       }
       try{
           const data = await axios.post(import.meta.env.VITE_BACKEND+'/api/user/signin',
-            {email,password}
+            {email,password},
+            { withCredentials : true }
           );
           console.log(data);
+
           nav("/blog");
       }
       catch(e){

@@ -11,7 +11,20 @@ const app = new Hono<{
   }
 }>();
 
-app.use('/*',cors());
+app.use('/*',cors({
+  origin : 'https://localhost:5173/*',
+  // allowHeaders: ['*'],
+  // allowMethods: ['*'],
+  // exposeHeaders: ['*'],
+  credentials: true,
+}));
+
+// app.use('/*',cors());
+
+app.use('*', async (c : any ,next : any )=>{
+  console.log(c.req);
+  await next();
+})
 
 app.route('/api/user',userRoute);
 app.route('/api/blog',blogRoute);
