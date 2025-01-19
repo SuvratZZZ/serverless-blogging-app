@@ -3,7 +3,15 @@ import { verify } from "hono/jwt"
 
 export const auth_ver = async (c:any,next:any)=>{
 
-    const token = await getCookie(c,'auth_token');
+    // const token = getCookie(c,'auth_token');
+    const authHeader = c.req.header('Authorization');
+    
+    if (!authHeader) {
+        c.json({ message: 'Unauthorized' }, 401)
+        return c.json({ message: 'Unauthorized' }, 401)
+    }
+    
+    const token = authHeader.split(' ')[1]; 
     console.log("tis is -> ",token)
     if(!token){
         c.status(403);

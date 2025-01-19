@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
 import Quote from "../components/Quote";
-import axios from "axios";
+import api from "../api/config";
 import Inup from "../components/Inup";
 import { useNavigate } from "react-router-dom";
 
@@ -20,12 +20,12 @@ function Signin() {
         return;
       }
       try{
-          const data = await axios.post(import.meta.env.VITE_BACKEND+'/api/user/signin',
+          const data = await api.post('/user/signin',
             {email,password},
-            { withCredentials : true }
+            // { withCredentials : true }
           );
+          localStorage.setItem("auth_token" , data.data.auth_token);
           console.log(data);
-
           nav("/blog");
       }
       catch(e){

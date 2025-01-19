@@ -1,16 +1,17 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
+import api from "../api/config";
 
 function Blog() {
     const [posts,setposts] = useState<any[]>([]);
     async function getpost(){
-        const data = await axios.get(import.meta.env.VITE_BACKEND+'/api/blog/posts',
-            { withCredentials : true }
+        const data = await api.get('/blog/posts'
+
         )
+        console.log(data.data);
         setposts(data.data.post);
     }
     useEffect(()=>{
-        getpost();
+        getpost(); 
     },[])
     return (
         <div>

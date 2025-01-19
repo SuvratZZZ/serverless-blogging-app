@@ -59,14 +59,18 @@ userRoute.post('/signin', async (c) => {
         return c.json({error:" user not found "})
       }
       const token = await sign({id : user.id},c.env.JWT_S);
-      setCookie(c,'auth_token', token, {
-        // httpOnly: true,  // Ensures the cookie is only accessible by the server (not client-side JS)
-        // secure: process.env.NODE_ENV === 'production',  // Only set the cookie over HTTPS in production
-        // path: '/*',  // Make the cookie available throughout the app
-        maxAge: 60 * 60 * 24 * 7, // 1 week expiration
-      });
+      // setCookie(c,'auth_token', token, {
+      //   // httpOnly: true,  // Ensures the cookie is only accessible by the server (not client-side JS)
+      //   // secure: process.env.NODE_ENV === 'production',  // Only set the cookie over HTTPS in production
+      //   path: '/*',  // Make the cookie available throughout the app
+      //   maxAge: 60 * 60 * 24 * 7, // 1 week expiration
+      //   sameSite: "None",
+      //   secure: false
+      // });
       // Redirect to the home page
-      return c.json({success : "signed in"});
+      return c.json({success : "signed in",
+                    auth_token : token
+      });
     }
     catch(e){
       console.log(e);
