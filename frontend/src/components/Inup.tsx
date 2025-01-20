@@ -1,9 +1,9 @@
-function Inup( {label , placeholder , refr }: 
-    {label : string , placeholder : string , refr : any  }) {
+function Inup( {label , placeholder , refr , wid}: 
+    {label : string , placeholder : string , refr? : any , wid?:string }) {
     return (
-        <div>
+        <div className={`h-${wid}`}>
             <h2>{label} : </h2>
-            <input className="p-1 border-transparent" placeholder={placeholder} ref={refr}></input>
+            <input className={`p-1 w-full border-2 rounded-md`} placeholder={placeholder} ref={refr}></input>
         </div>
     );
 }

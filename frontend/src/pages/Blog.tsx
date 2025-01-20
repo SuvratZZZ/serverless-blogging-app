@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import api from "../api/config";
+import Postform from "../components/Postform";
 
 function Blog() {
     const [posts,setposts] = useState<any[]>([]);
@@ -13,10 +14,14 @@ function Blog() {
     useEffect(()=>{
         getpost(); 
     },[])
+    
     return (
         <div>
+            <div>
+                <Postform/>
+            </div>
             { 
-                posts.length > 0 ? (
+                ( posts !=undefined)? (
                 posts.map((post: any, index: number) => (
                     <div key={index}>
                         <h2>{post.title}</h2>
@@ -24,7 +29,7 @@ function Blog() {
                     </div>
                 ))
                 ) : (
-                    <p>No posts available.</p>
+                    <p className="w-screen h-screen flex justify-center items-center">No posts available.</p>
             )}
         </div>
     );
