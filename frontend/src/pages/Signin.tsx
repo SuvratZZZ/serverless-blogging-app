@@ -3,7 +3,6 @@ import Quote from "../components/Quote";
 import api from "../api/config";
 import Inup from "../components/Inup";
 import { useNavigate } from "react-router-dom";
-import Nav from "../components/Nav";
 
 function Signin() {
     const emailRef = useRef<HTMLInputElement>(null);
