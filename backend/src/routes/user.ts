@@ -69,7 +69,9 @@ userRoute.post('/signin', async (c) => {
       // });
       // Redirect to the home page
       return c.json({success : "signed in",
-                    auth_token : token
+                    auth_token : token ,
+                    author : user.name,
+                    author_id : user.id
       });
     }
     catch(e){

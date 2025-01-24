@@ -1,5 +1,6 @@
 import { useRef, useState } from "react";
 import Inup from "./Inup";
+import api from "../api/config";
 
 function Postform() {
     const titleref=useRef<HTMLInputElement>();
@@ -11,7 +12,7 @@ function Postform() {
     const togglePostbox=()=>{
         setpostbox(!postbox)
     }
-    const sendPostobj = ()=>{
+    const sendPostobj = async ()=>{
         if(contentref.current?.value === undefined || titleref.current?.value === undefined){
             setale('*enter valid content');
             return;
@@ -22,9 +23,21 @@ function Postform() {
         }
         setsendpo({
             "title"     : titleref.current?.value,
-            "content"   : contentref.current?.value 
+            "content"   : contentref.current?.value,
+            // "author"    : localStorage.getItem('author'),
+            "id"        : localStorage.getItem('author_id'),
+            "published" : false
         })
-        setpostbox(true);
+        try{
+            const res = await api.post('blog/post',sendpo);
+            console.log(res);
+            alert('posted sucessfully');
+            setpostbox(true);
+        }
+        catch(e){
+            console.log(e);
+            setale("*unable to post")
+        }
     }
     return (
         <div>

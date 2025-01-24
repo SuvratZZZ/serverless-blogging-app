@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import api from "../api/config";
 import Postform from "../components/Postform";
+import Postcard from "../components/Postcard";
+import Nav from "../components/Nav";
 
 function Blog() {
     const [posts,setposts] = useState<any[]>([]);
@@ -9,13 +11,15 @@ function Blog() {
 
         )
         console.log(data.data);
-        setposts(data.data.post);
+        setposts(data.data.blogs);
     }
     useEffect(()=>{
         getpost(); 
     },[])
     
     return (
+        <>
+        <Nav/>
         <div>
             <div>
                 <Postform/>
@@ -24,14 +28,14 @@ function Blog() {
                 ( posts !=undefined)? (
                 posts.map((post: any, index: number) => (
                     <div key={index}>
-                        <h2>{post.title}</h2>
-                        <p>{post.content}</p>
+                        <Postcard title={post.title} content={post.content} author={post.author} />
                     </div>
                 ))
                 ) : (
                     <p className="w-screen h-screen flex justify-center items-center">No posts available.</p>
             )}
         </div>
+        </>
     );
 }
 

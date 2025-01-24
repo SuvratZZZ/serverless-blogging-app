@@ -16,21 +16,22 @@ export const blogRoute = new Hono<{
     }).$extends(withAccelerate());
     
     const body = await c.req.json();
+    console.log(body);
     try{
       const user = await prisma.post.create({
         data:{
           title     : body.title    ,
           content   : body.content  ,
           published : body.published,
-          author    : body.author   ,
+          // author    : body.author   ,
           authorId  : body.id 
         }
       })
-      console.log("osted")
+      console.log("posted")
       return c.json({sucess : "posted"});
     }
     catch(e){
-      // console.log(e);
+      console.log(e);
       c.status(403);
       return c.json({error : "unable to post"})
     }
@@ -43,11 +44,12 @@ blogRoute.get('/posts', auth_ver , async (c) => {
     }).$extends(withAccelerate());
     try{
       const blogs = await prisma.post.findMany();
-      console.log("osted")
+      console.log(blogs);
+      console.log("send posted")
       return c.json({blogs});
     }
     catch(e){
-      // console.log(e);
+      console.log(e);
       c.status(403);
       return c.json({error : "unable to get posts"})
     }
