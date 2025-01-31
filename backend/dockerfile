@@ -1,0 +1,15 @@
+FROM node:20
+
+WORKDIR /app
+
+COPY package* .
+COPY ./prisma .
+
+RUN npm i
+RUN npx prisma generate
+
+COPY . .
+
+EXPOSE 8787
+
+CMD [ "npm" , "run" , "dev" ]

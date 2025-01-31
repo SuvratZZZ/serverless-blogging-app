@@ -20,7 +20,7 @@ function Blog() {
     return (
         <>
         <Nav/>
-        <div>
+        <div className="mt-8">
             <div>
                 <Postform/>
             </div>
@@ -28,9 +28,9 @@ function Blog() {
                 ( posts !=undefined)? (
                 posts.map((post: any, index: number) => (
                     <div key={index}>
-                        <Postcard title={post.title} content={post.content} author={post.author} />
-                    </div>
-                ))
+                        <Postcard title={post.title} content={post.content} author={post.author.name} id={post.id} author_id={post.author.id}/>
+                    </div>)
+                )
                 ) : (
                     <p className="w-screen h-screen flex justify-center items-center">No posts available.</p>
             )}

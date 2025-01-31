@@ -29,5 +29,8 @@ app.use('*', async (c : any ,next : any )=>{
 app.route('/api/user',userRoute);
 app.route('/api/blog',blogRoute);
 app.route('/api/quote',quoteRoute);
+app.get('/health',(c)=>{
+  return c.json({"condition":"wow"})
+})
 
 export default app

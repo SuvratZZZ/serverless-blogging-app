@@ -2,6 +2,7 @@ import { Hono } from 'hono'
 import { PrismaClient } from '@prisma/client/edge'
 import { withAccelerate } from '@prisma/extension-accelerate'
 import { auth_ver } from '../middleware/auth';
+import { error } from 'console';
 
 export const blogRoute = new Hono<{
     Bindings: {
@@ -25,6 +26,7 @@ export const blogRoute = new Hono<{
           published : body.published,
           // author    : body.author   ,
           authorId  : body.id 
+
         }
       })
       console.log("posted")
@@ -37,13 +39,41 @@ export const blogRoute = new Hono<{
     }
 })
 
+blogRoute.delete('/post/:id',auth_ver,async(c)=>{
+    const del_id : string=c.req.param('id')
+    const prisma = new PrismaClient({
+      datasourceUrl: c.env.DATABASE_URL,
+    }).$extends(withAccelerate());
+    try{
+      await prisma.post.delete({
+        where:{
+          id: del_id
+        }
+      })
+      return c.json({sucess:'deleted'})
+    }
+    catch(e){
+      c.status(411)
+      return c.json({error:'unable to del'})
+    }
+});
+
 blogRoute.get('/posts', auth_ver , async (c) => {
     console.log(c.req);
     const prisma = new PrismaClient({
       datasourceUrl: c.env.DATABASE_URL,
     }).$extends(withAccelerate());
     try{
-      const blogs = await prisma.post.findMany();
+      const blogs = await prisma.post.findMany({
+        include :{
+          author :{
+            select :{
+              name : true ,
+              id : true
+            }
+          }
+        }
+      });
       console.log(blogs);
       console.log("send posted")
       return c.json({blogs});
