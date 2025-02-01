@@ -1,4 +1,3 @@
-import axios from "axios";
 import { useState } from "react";
 import api from "../api/config";
 
@@ -20,7 +19,7 @@ function Postcard({title , content , author , date , id ,author_id} :
         <div className="m-2 p-2 border border-gray-200 rounded-md shadow-md  ">
             <div  onClick={()=>setcon(content)} className="uppercase cursor-pointer text-xl font-bold">{title}</div>
             <div className="w-full justify-items-end ">
-                    <div className="text-sm text-gray-500"> by...{author}</div>
+                    <div className="text-sm text-gray-500"> by...{author}{date}</div>
             </div>
             <div className="h-15 overflow-hidden text-sm text-gray-500">{con}</div>
             <div className="flex justify-end">
