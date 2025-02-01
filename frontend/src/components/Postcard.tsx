@@ -1,8 +1,8 @@
 import { useState } from "react";
 import api from "../api/config";
 
-function Postcard({title , content , author , date , id ,author_id} : 
-    {title : string , content : string , author : string , date? : Date , id:string , author_id:string}
+function Postcard({title , content , author , id ,author_id} : 
+    {title : string , content : string , author : string  , id:string , author_id:string}
 ) {
     const [con,setcon] = useState<string>(content.slice(0,100))
 
@@ -19,7 +19,7 @@ function Postcard({title , content , author , date , id ,author_id} :
         <div className="m-2 p-2 border border-gray-200 rounded-md shadow-md  ">
             <div  onClick={()=>setcon(content)} className="uppercase cursor-pointer text-xl font-bold">{title}</div>
             <div className="w-full justify-items-end ">
-                    <div className="text-sm text-gray-500"> by...{author}{date}</div>
+                    <div className="text-sm text-gray-500"> by...{author}</div>
             </div>
             <div className="h-15 overflow-hidden text-sm text-gray-500">{con}</div>
             <div className="flex justify-end">
