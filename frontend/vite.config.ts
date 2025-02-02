@@ -8,7 +8,7 @@ export default defineConfig({
     proxy: {
       // Ensure the path starts with a forward slash
       '/api': {
-        target: 'https://backend.singhsubrat35.workers.dev/', // Backend URL
+        target: 'https://backend.singhsubrat35.workers.dev', // Backend URL
         changeOrigin: true, // Handle cross-origin requests
         // rewrite: (path) => path.replace(/^\/api/, ''), // Optional: remove '/api' prefix if not needed
         
