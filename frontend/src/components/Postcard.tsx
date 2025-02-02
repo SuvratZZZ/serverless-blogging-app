@@ -1,9 +1,8 @@
-import axios from "axios";
 import { useState } from "react";
 import api from "../api/config";
 
-function Postcard({title , content , author , date , id ,author_id} : 
-    {title : string , content : string , author : string , date? : Date , id:string , author_id:string}
+function Postcard({title , content , author , id ,author_id} : 
+    {title : string , content : string , author : string  , id:string , author_id:string}
 ) {
     const [con,setcon] = useState<string>(content.slice(0,100))
 
