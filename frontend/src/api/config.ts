@@ -1,7 +1,8 @@
 import axios from 'axios';
+import { BASE_URL } from './base';
 
 const api = axios.create({
-  baseURL: '/api', // Base URL for your backend
+  baseURL: BASE_URL, // Base URL for your backend
 });
 
 // Add Authorization header dynamically from local storage
