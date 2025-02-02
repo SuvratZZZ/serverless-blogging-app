@@ -19,7 +19,7 @@ const app = new Hono<{
 //   credentials: true,
 // }));
 
-// app.use(cors());
+app.use('/*',cors());
 
 app.use('*', async (c : any ,next : any )=>{
   console.log(c.req);

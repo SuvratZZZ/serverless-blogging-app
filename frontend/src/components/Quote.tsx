@@ -14,7 +14,7 @@ function Quote() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const url = '/quote' ;
+        const url = 'api/quote' ;
         const response = await axios.get(url);
         // console.log(response.data.data[0]);
         setQuo(response.data.data[0]);
