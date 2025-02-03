@@ -3,11 +3,11 @@
       {
         "source": "/api/:path*", 
         "destination": "https://backend.singhsubrat35.workers.dev/api/:path*"
-      }
-    ],
-    "rewrites": [
-    "source": "/(.*)",
-      "destination": "/index.html"
+      } ,
+        {
+            "source": "/(.*)",
+            "destination": "/index.html"
+        }
     ]
   }
   
