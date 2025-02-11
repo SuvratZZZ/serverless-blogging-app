@@ -26,7 +26,7 @@ userRoute.post('/signup',async (c) => {
       }
     })
     console.log(user);
-    return c.redirect('/api/signin');
+return c.json({"sucess" : "signed up"});
   }
   catch(e){
     console.log(e);
